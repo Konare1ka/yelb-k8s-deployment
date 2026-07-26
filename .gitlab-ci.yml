@@ -1,0 +1,23 @@
+stages:
+  - build
+
+build:
+  stage: build
+  image: docker:24
+  services:
+    - docker:24-dind
+  tags:
+    - local-docker
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  parallel:
+    matrix:
+      - SERVICE: [yelb-ui, yelb-appserver, yelb-db]
+  script:
+    - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
+    - docker build -t konare1ka/$SERVICE:gitlab-$CI_COMMIT_SHORT_SHA ./$SERVICE
+    - docker push konare1ka/$SERVICE:gitlab-$CI_COMMIT_SHORT_SHA
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: manual
+    - when: never
