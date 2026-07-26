@@ -11,6 +11,10 @@ My completed work is organized in the following directories:
 
 The project setup is designed to provide a reproducible deployment process with automated application deployment, monitoring integration, and continuous integration capabilities.
 
+Additionally, the project was mirrored to GitLab ([yelb-k8s-deployment](https://gitlab.com/Konare1ka/yelb-k8s-deployment)), where a self-hosted GitLab Runner was registered and successfully brought online. The runner itself was intentionally left unconfigured for active builds (paused) to avoid a race condition between GitHub Actions and GitLab CI both pushing image tags to Docker Hub simultaneously.
+
+> **Note:** See the active runner status below.
+> ![gitlab-runner-active](images/gitlab-runner-online.png)
 
 #### Why Yelb 
 
